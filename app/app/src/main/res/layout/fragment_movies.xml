@@ -1,14 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@android:color/black"
     tools:context=".features.moviesList.MoviesFragment">
+    <include layout="@layout/view_main_loading"
+        android:id="@+id/v_loading"
+        android:visibility="gone"/>
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <include layout="@layout/view_empty"
+        android:id="@+id/v_empty"
+        android:visibility="gone"/>
+
+    <include layout="@layout/view_no_internet"
+        android:id="@+id/v_noInternet"
+        android:visibility="gone"/>
+
+    <include
+        android:id="@+id/v_serverError"
+        layout="@layout/view_server_error"
+        android:visibility="gone" />
+
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMovies"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:listitem="@layout/view_movie_listitem"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="3"
+        />
 
-</FrameLayout>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        app:cardCornerRadius="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorAccent"
+            android:padding="5dp"
+            android:visibility="gone" />
+
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
+</LinearLayout>
