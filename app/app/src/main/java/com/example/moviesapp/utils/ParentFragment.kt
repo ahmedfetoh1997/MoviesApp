@@ -12,11 +12,12 @@ import androidx.navigation.Navigation
 import com.example.moviesapp.R
 import com.example.moviesapp.utils.generalResponse.GeneralError
 
-class ParentFragment : Fragment(), IParentFragmentView {
+ open class ParentFragment : Fragment(), IParentFragmentView {
     //    https://api.themoviedb.org/3/movie/popular?api_key=9f507a981b67d0f0b3ec4e0e889b7b2b&&page=1
     companion object {
-        val apiKey = "9f507a981b67d0f0b3ec4e0e889b7b2"
+        val API_KEY = "9f507a981b67d0f0b3ec4e0e889b7b2b"
     }
+
 
     private val UNAUTHORIZED_CODE = 401
 
@@ -38,7 +39,6 @@ class ParentFragment : Fragment(), IParentFragmentView {
     private var navController: NavController? = null
 
     override fun initSettings() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun setupUI(view: View?) {

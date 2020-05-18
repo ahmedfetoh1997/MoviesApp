@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<data>
+    <variable
+        name="movie"
+        type="com.example.moviesapp.models.moviesResponse.Movie" />
+</data>
     <LinearLayout
 
         android:layout_width="match_parent"
@@ -14,13 +19,16 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            imageUrl="@{movie.poster_path}"
+            tools:src="@drawable/ic_launcher_background" />
 
         <TextView
             android:id="@+id/tvMovie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="movie"
+            android:text="@{movie.title}"
+            tools:text="movie title"
+            android:maxLines="1"
             android:textAlignment="center"
             android:textColor="@color/colorAccent" />
     </LinearLayout>
