@@ -3,9 +3,8 @@ package com.example.moviesapp.utils
 import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.example.moviesapp.R
+import com.squareup.picasso.Picasso
 
 class DataBindingHelper {
     companion object {
@@ -22,13 +21,12 @@ class DataBindingHelper {
         ) {
             var imageUrlWithResize = imageUrlWithResize
             if (imageUrlWithResize == null || imageUrlWithResize.length == 0) {
-                imageUrlWithResize = "0"
+                imageUrlWithResize = "0000"
             }
-            Glide.with(imageView.context)
+            Picasso.get()
                 .load(imageUrlWithResize)
-                .apply(RequestOptions().override(imageWidth, imageHeight))
-//            .placeholder(R.drawable.image_loading)
-//            .error(R.drawable.img_no_image)
+                .resize(imageWidth, imageHeight)
+                .centerCrop()
                 .into(imageView)
         }
 
@@ -40,14 +38,15 @@ class DataBindingHelper {
             imageUrl: String = ""
         ) {
             var imageUrl = imageUrl
-            if (imageUrl == null || imageUrl.length == 0) {
-                imageUrl = "0"
+            if (imageUrl.length == 0) {
+                imageUrl = "0000"
             }
-            Glide.with(imageView.context)
+            Picasso.get()
                 .load(imageUrl)
-            .placeholder(R.color.colorPrimaryDark)
-            .error(R.color.colorAccent)
+                .placeholder(R.drawable.progress_animation)
+                .error(R.drawable.image_not_found)
                 .into(imageView)
+
         }
     }
 

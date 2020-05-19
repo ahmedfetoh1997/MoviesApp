@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.moviesapp.R
 import com.example.moviesapp.databinding.FragmentMoviesBinding
 import com.example.moviesapp.models.moviesResponse.Movie
@@ -66,14 +67,24 @@ class MoviesFragment : ParentFragment() {
             adapter = moviesAdapter
             layoutManager = GridLayoutManager(context, 3)
         }
+        binding.rvMovies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+        })
+
     }
 
     private fun observeMoviesResponse() {
         viewModel.moviesResponseApi.observe(this, Observer {
             when (it?.status) {
-                Status.Loading->showMainLoading()
-                Status.Failure->handleErrorMsg(it.error)
-                Status.Success->onMoviesResponseSuccess(it.data?.results)
+                Status.Loading -> showMainLoading()
+                Status.Failure -> handleErrorMsg(it.error)
+                Status.Success -> onMoviesResponseSuccess(it.data?.results)
             }
         })
     }
@@ -81,11 +92,21 @@ class MoviesFragment : ParentFragment() {
     private fun onMoviesResponseSuccess(movies: List<Movie>?) {
         hideMainLoading()
         hideLoadMoreProgress()
-        moviesAdapter.addMore(movies)
+        movies?.let {
+            handleMoviesImages(it)
+            moviesAdapter.addMore(it)
+        }
     }
 
-    private fun handleMoviesSearch()
-    {
+    private fun handleMoviesImages(movies: List<Movie>) {
+        for (movie in movies)
+        {
+            var imagePath = "https://image.tmdb.org/t/p/w200" + movie.poster_path
+            movie.poster_path = imagePath
+        }
+    }
+
+    private fun handleMoviesSearch() {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
 
@@ -102,6 +123,7 @@ class MoviesFragment : ParentFragment() {
             }
         })
     }
+
 
     override fun onDestroy() {
         super.onDestroy()

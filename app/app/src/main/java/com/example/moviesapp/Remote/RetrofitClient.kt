@@ -7,13 +7,9 @@ import java.util.concurrent.TimeUnit
 
 class RetrofitClient {
 
-    var AcceptType = "application/json"
-    var MethodTypePut = "PUT"
-
     companion object {
 
         private var retrofit: Retrofit? = null
-        private var googleRetrofit: Retrofit? = null
 
         fun getClient(): Retrofit? {
             if (retrofit == null) {
@@ -25,19 +21,6 @@ class RetrofitClient {
             }
             return retrofit
         }
-
-
-        fun getGoogle(): Retrofit? {
-            if (googleRetrofit == null) {
-                googleRetrofit = Retrofit.Builder()
-                    .baseUrl("https://maps.googleapis.com/maps/api/directions/")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .client(setTime())
-                    .build()
-            }
-            return googleRetrofit
-        }
-
 
         private fun setTime(): OkHttpClient? {
             return OkHttpClient.Builder()

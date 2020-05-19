@@ -4,12 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.moviesapp.R
 import com.example.moviesapp.databinding.ViewMovieListitemBinding
 import com.example.moviesapp.models.moviesResponse.Movie
 
-class MoviesAdapter(val movies: MutableList<Movie>) :
+class MoviesAdapter(private val movies: MutableList<Movie>) :
     RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
@@ -26,9 +25,9 @@ class MoviesAdapter(val movies: MutableList<Movie>) :
 
     class MoviesViewHolder(var itemBinding: ViewMovieListitemBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
+
+
         fun bind(movie: Movie) {
-            var imagePath= "https://image.tmdb.org/t/p/original"+movie.poster_path
-            movie.poster_path=imagePath
             itemBinding.movie = movie
         }
 

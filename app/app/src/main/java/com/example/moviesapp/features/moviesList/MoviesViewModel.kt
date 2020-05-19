@@ -13,7 +13,9 @@ import retrofit2.Response
 
 class MoviesViewModel :ViewModel() {
     private val TAG = "MoviesViewModel"
+
     val moviesResponseApi: GeneralResponseLiveData<MoviesResponse?> = GeneralResponseLiveData()
+
     private var moviesListCall: Call<MoviesResponse>? = null
 
 
